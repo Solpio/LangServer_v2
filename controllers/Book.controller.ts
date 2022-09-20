@@ -1,27 +1,25 @@
-import express from "express";
-import Words from "../models/Words";
+import express from 'express'
+import Words from '../models/Words'
 
-export const getBooks = async (req: express.Request,res: express.Response) => {
+export const getBooks = async (req: express.Request, res: express.Response) => {
   try {
-    let groupIndex = 0;
+    let groupIndex = 0
+    let total = 1
     const groupMas = []
-    while (true){
-      const total = await Words.count({group: groupIndex})
-      if (!total){
-        break
+    while (total > 0) {
+      total = await Words.count({ group: groupIndex })
+      if (total) {
+        groupMas.push({ group: groupIndex, total: total })
+        groupIndex += 1
       }
-      groupMas.push({group: groupIndex, total: total})
-      groupIndex += 1
     }
 
     res.json({
-      groupMas
+      groupMas,
     })
-
-  } catch (err){
+  } catch (err) {
     res.status(500).json({
       message: 'Ошибка сервера',
     })
   }
-
 }
