@@ -41,7 +41,7 @@ export const createUser = async (
     })
   } catch (err) {
     res.status(500).json({
-      massage: 'не удалось зарагистрироваться',
+      message: 'не удалось зарагистрироваться',
     })
   }
 }

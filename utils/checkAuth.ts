@@ -17,12 +17,12 @@ export default (
       next()
     } catch (err) {
       return res.status(403).json({
-        massage: 'Нет доступа',
+        message: 'Нет доступа',
       })
     }
   } else {
     return res.status(403).json({
-      massage: 'Нет доступа',
+      message: 'Нет доступа',
     })
   }
 }

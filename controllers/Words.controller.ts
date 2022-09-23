@@ -12,7 +12,7 @@ export const getWords = async (req: express.Request, res: express.Response) => {
     const words = await getWordsService(req.query, errorHandler)
     if (!words.length) {
       return res.status(404).json({
-        massage: 'Не удалось найти слова из раздела или страницы',
+        message: 'Не удалось найти слова из раздела или страницы',
       })
     }
     res.json({
