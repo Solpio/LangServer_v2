@@ -12,9 +12,9 @@ const { MONGODB_URI, PORT } = process.env
 
 const app = express()
 const port = PORT || 4444
-
+const uri = MONGODB_URI || 'test'
 mongoose
-  .connect(MONGODB_URI)
+  .connect(uri)
   .then(() => {
     console.log('db ok')
   })
