@@ -41,7 +41,7 @@ export const createUser = async (
     })
   } catch (err) {
     res.status(500).json({
-      message: 'не удалось зарагистрироваться',
+      message: 'не удалось зарагистрироваться. Возможно у вас уже есть аккаунт',
     })
   }
 }
@@ -55,7 +55,6 @@ export const login = async (req: express.Request, res: express.Response) => {
     } else {
       user = await UserModel.findOne({ username: req.body.login })
     }
-
     if (!user) {
       return res.status(404).json({
         message: 'Пользователь не найден',
@@ -105,7 +104,6 @@ export const getMe = async (req: express.Request, res: express.Response) => {
       ...userData,
     })
   } catch (err) {
-    console.log(err)
     res.status(500).json({
       message: 'Нет доступа',
     })

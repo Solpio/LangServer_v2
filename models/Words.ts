@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import { DocumentResult } from './helpers'
 
-export interface IWords {
+export interface IWords extends DocumentResult<IWords> {
   group: number
   page: number
   word: string

@@ -16,7 +16,7 @@ export const getWords = async (req: express.Request, res: express.Response) => {
       })
     }
     res.json({
-      ...words,
+      words: [...words],
       total: await Words.count({ group: req.query.group }),
     })
   } catch (err) {

@@ -1,8 +1,6 @@
 import mongoose from 'mongoose'
+import { DocumentResult } from './helpers'
 
-export interface DocumentResult<T> {
-  _doc: T
-}
 interface IUser extends DocumentResult<IUser> {
   username: string
   email: string

@@ -32,12 +32,12 @@ app.get('/auth/me', checkAuth, UserController.getMe)
 
 app.get('/words', WordsController.getWords)
 
-app.get('/book/sections', BookController.getBooks)
+app.get('/books/sections', BookController.getBooks)
 
 app.post('/user/words', checkAuth, UserWordsController.createUserWords)
 app.get('/user/words', checkAuth, UserWordsController.getUserWords)
 app.get('/user/words/:id', checkAuth, UserWordsController.getWord)
-app.put('/user/words/:id/:status', checkAuth, UserWordsController.setWordFavorite)
+app.put('/user/words/:id/:status', checkAuth, UserWordsController.setWordStatus)
 
 app.listen(port, () => {
   console.log('Server OK')

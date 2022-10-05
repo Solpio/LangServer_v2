@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import { DocumentResult } from './helpers'
 
-interface IUserWords {
+export interface IUserWords extends DocumentResult<IUserWords> {
   userId: mongoose.Schema.Types.ObjectId
   wordId: mongoose.Schema.Types.ObjectId
   status: keyof typeof IWordStatus
@@ -10,7 +11,7 @@ export enum IWordStatus {
   'new' = 'new',
   'learned' = 'learned',
   'favorite' = 'favorite',
-  'forgotten' = 'forgotten'
+  'forgotten' = 'forgotten',
 }
 
 const UserWordsSchema = new mongoose.Schema<IUserWords>(

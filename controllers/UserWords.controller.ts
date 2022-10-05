@@ -1,8 +1,6 @@
-
 import express from 'express'
 import UserModel from '../models/User'
 import UserWords, { IWordStatus } from '../models/UserWords'
-import Words from '../models/Words'
 import { getWordsService } from '../services/word.service'
 
 export const createUserWords = async (
@@ -17,13 +15,11 @@ export const createUserWords = async (
     }
 
     const user = await UserModel.findById(req.body.id)
-    console.log(user)
     if (!user) {
       return res.status(404).json({
         message: 'Пользователь не найден',
       })
     }
-
     const words = await getWordsService(req.query, errorHandler)
     if (!words.length) {
       return res.status(404).json({
@@ -48,12 +44,10 @@ export const createUserWords = async (
         await userWord.save()
       }
     }
-
     res.json({
       userWords,
     })
   } catch (err) {
-    console.log(err)
     res.status(409).json({
       message: 'Солова уже были созданы',
     })
@@ -71,7 +65,6 @@ export const getUserWords = async (
         message: 'Пользователь не найден',
       })
     }
-
     res.json({
       userWords,
     })
@@ -82,18 +75,17 @@ export const getUserWords = async (
   }
 }
 
-export const setWordFavorite = async (
+export const setWordStatus = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
-    console.log(Object.keys(IWordStatus).indexOf(req.params.status))
     if (Object.keys(IWordStatus).indexOf(req.params.status) === -1) {
       return res.status(400).json({
         message: 'Неверный запрос',
       })
     }
-    const userWords = await UserWords.findOneAndUpdate(
+    const userWord = await UserWords.findOneAndUpdate(
       { userId: req.body.id, wordId: req.params.id },
       { status: req.params.status },
       {
@@ -101,15 +93,14 @@ export const setWordFavorite = async (
       }
     )
 
-    if (!userWords) {
+    if (!userWord) {
       return res.status(404).json({
         message: 'Пользователь не найден',
       })
     }
 
     res.json({
-      userWords,
-      word: await Words.find({ _id: req.params.id }),
+      ...userWord._doc,
     })
   } catch (err) {
     res.status(500).json({
