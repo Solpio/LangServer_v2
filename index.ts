@@ -8,13 +8,13 @@ import * as UserWordsController from './controllers/UserWords.controller'
 import * as BookController from './controllers/Book.controller'
 import checkAuth from './utils/checkAuth'
 
+const { MONGODB_URI, PORT } = process.env
+
 const app = express()
-const port = 4444
+const port = PORT || 4444
 
 mongoose
-  .connect(
-    'mongodb+srv://slp:xkR5M84fSBj4lUHk@cluster0.hjh0xxr.mongodb.net/?retryWrites=true&w=majority'
-  )
+  .connect(MONGODB_URI)
   .then(() => {
     console.log('db ok')
   })
